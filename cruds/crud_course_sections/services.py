@@ -19,7 +19,9 @@ def get_course_section():
 def course_section_details(course_section_id):
     if not models.CourseSections.query.get(course_section_id):
         return jsonify({'result': 'Não encontrado!'})
-    return jsonify(course_section=[dict(id=course_section.id) for course_section in models.CourseSections.query.get(course_section_id)])
+
+    course_section= models.CourseSections.query.get(course_section_id)
+    return jsonify(course_section=dict(id=course_section.id))
 
 
 
