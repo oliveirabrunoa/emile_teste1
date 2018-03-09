@@ -9,23 +9,18 @@ from sqlalchemy import and_, or_
 
 course_sections = Blueprint("course_sections", __name__)
 
-
+#Retornar todos as course_sections
 @course_sections.route('/course_sections', methods=['GET'])
 def get_course_section():
-    return jsonify(course_sections=[dict(id=course_section.id, code=course_section.code,
-                                         name=course_section.name, course_id=course_section.course_id,
-                                         teacher_id=course_section.teacher_id,
-                                         course_section_period=course_section.course_section_period)
-                                    for course_section in models.CourseSections.query.all()])
+    pass
 
 
+#Retornar os detalhes de uma course_section a partir do seu id.
 @course_sections.route('/course_section_details/<course_section_id>', methods=['GET'])
 def course_section_details(course_section_id):
-    if not models.CourseSections.query.get(course_section_id):
-        return jsonify({'result': 'Não encontrado!'})
+    pass
 
-    course_section= models.CourseSections.query.get(course_section_id)
-    return jsonify(course_section=dict(id=course_section.id))
+
 
 
 
