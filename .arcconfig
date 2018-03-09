@@ -1,0 +1,4 @@
+{
+    "phabricator.uri":"https://phabricator.ifba.edu.br/",
+    "https.blindly-trust-domains": ["phabricator.ifba.edu.br"]
+}
