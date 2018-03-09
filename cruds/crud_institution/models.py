@@ -8,7 +8,7 @@ class Institution(db.Model):
     cnpj = db.Column(db.String(18), unique=True)
     address = db.Column(db.String(250))
     current_program_section = db.Column(db.String(6))
-    programs = db.relationship('Program', backref='institution', lazy='dynamic')
+    programs = db.relationship('Program')
 
 
     def set_fields(self, fields):
