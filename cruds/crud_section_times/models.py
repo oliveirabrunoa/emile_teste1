@@ -9,6 +9,8 @@ class SectionTimes(db.Model):
     section_time_start_time = db.Column(db.Time())
     section_time_finish_time = db.Column(db.Time())
 
+    def __repr__(self):
+        return str('{0}').format(self.week_day)
 
     def set_fields(self, fields):
         self.course_section_id = fields['course_section_id']
