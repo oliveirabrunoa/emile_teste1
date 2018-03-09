@@ -40,12 +40,23 @@ def programs_course_sections(program_id):
     return jsonify(programs_course_sections=[course_section for course_section in programs_course_sections]), 200
 
 
+
+
+
+
+
+''' Não utilizado no experimento
+
+
+
 @program.route('/programs_courses/<program_id>', methods=['GET'])
 def programs_courses(program_id):
     program = models.Program.query.get(program_id)
     if not program:
         return jsonify(result="invalid program id"), 404
-    return jsonify(program=serializer.ProgramSerializer().serialize([program])), 200
+    return jsonify(program=program), 200
+
+
 
 
 @program.route('/students_program_history/<student_id>', methods=['GET'])
@@ -61,7 +72,7 @@ def students_program_history(student_id):
     hours_completed, credits_completed = program_current_progress(student)
     program_details = {"hours_completed":hours_completed, "credits_completed":credits_completed ,"total_credits": program.total_credits, "total_hours": program.total_hours}
     for course in program.courses:
-        _dict = {"course": CoursesSerializer().serialize([course])}
+        _dict = {"course": course}
         _dict.update(last_status_and_grade(course, student))
         times = course_times(course, student)
         _dict['times']= times
@@ -85,7 +96,7 @@ def update_coordinator(program_id, coordinator_id):
     program.coordinator_id = coordinator.id
     db.session.commit()
 
-    return jsonify(program=serializer.ProgramSerializer().serialize([program])), 200
+    return jsonify(program=program), 200
 
 
 def course_times(course, student):
@@ -109,3 +120,4 @@ def last_status_and_grade(course, student):
         _dict['status']= CourseSectionStudentsStatusSerializer().serialize([CourseSectionStudentsStatus.query.get(course_section_student.status)])
         _dict['grade']= course_section_student.grade
     return _dict
+'''

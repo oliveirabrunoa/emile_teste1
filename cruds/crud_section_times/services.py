@@ -16,8 +16,7 @@ section_times = Blueprint("section_times", __name__)
 
 @section_times.route('/section_times', methods=['GET'])
 def get_section_times():
-    section_times = serializer.SectionTimeSerializer().serialize(models.SectionTimes.query.all())
-    return jsonify(section_times=section_times)
+    return jsonify(section_times=[dict(id=section_time.id) for section_time in models.SectionTimes.query.all() ])
 
 
 @section_times.route('/teachers_section_times/<teacher_id>', methods=['GET'])
@@ -29,10 +28,9 @@ def teachers_section_times(teacher_id):
                                                             filter(CourseSections.teacher_id == teacher_id).
                                                             filter(CourseSections.course_section_period == Institution.current_program_section).all())
 
-    section_times_list = serializer.SectionTimeSerializer().serialize(section_times)
-    return jsonify(section_times=section_times_list)
+    return jsonify(section_times=[dict(id=section_time.id) for section_time in section_times])
 
-
+''' Não utilizado no experimento
 @section_times.route('/section_time_in_progress/<teacher_id>', methods=['GET'])
 def section_time_in_progress(teacher_id):
     now = datetime.datetime.now(tz=pytz.timezone('America/Bahia')).time()
@@ -78,7 +76,7 @@ def student_attendance_register(course_section_id):
     except:
         return jsonify(result="Invalid request"), 404
 
-
+'''
 
 # @section_times.route('/update_section_time/<section_time_id>', methods=['POST'])
 # def update_section_time(section_time_id):

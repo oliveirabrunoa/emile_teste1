@@ -30,6 +30,10 @@ def get_teachers():
     return jsonify(users=[dict(id=user.id, email=user.email) for user in models.Users.query.filter_by(type=2)])
 
 
+
+
+
+''' Não utilizado no experimento
 @users.route('/add_student', methods=['POST'])
 def add_student():
     data = dict(request.get_json())
@@ -154,6 +158,8 @@ def teachers_course_sections(user_id):
 
     return jsonify(teachers_course_sections=CourseSectionsSerializer().serialize(course_sections))
 
+
+
 @users.route('/students_course_sections/<student_id>', methods=['GET'])
 def students_course_sections(student_id):
     """ It returns just course_sections in progress """
@@ -212,3 +218,4 @@ def update_user_image(user_id):
 
 def allowed_file(filename):
     return '.' in filename and (filename.rsplit('.', 1)[1].lower() in settings.ALLOWED_EXTENSIONS or 'asset.JPG' in filename)
+'''
