@@ -15,11 +15,14 @@ def get_course_section():
     pass
 
 
-#Retornar os detalhes de uma course_section a partir do seu id.
 @course_sections.route('/course_section_details/<course_section_id>', methods=['GET'])
 def course_section_details(course_section_id):
-    pass
-
+    course_section = models.CourseSections.query.get(course_section_id)
+    return jsonify(course_section=[dict(id=course_section.id, code = course_section.code,
+                                        name=course_section.name,
+                                        course_section_period=course_section.course_section_period,
+                                        course=str(course_section.course),
+                                        teacher=str(course_section.teacher))])
 
 
 

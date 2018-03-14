@@ -5,10 +5,9 @@ from backend import db
 
 courses = Blueprint("courses", __name__)
 
-#Retorna todos os cursos
 @courses.route('/courses', methods=['GET'])
 def get_courses():
-    pass
+    return jsonify(courses=[dict(id=course.id, code=course.code, name=course.name) for course in models.Courses.query.all()])
 
 #Retorna detalhes de um curso
 @courses.route('/course_details/<course_id>', methods=['GET'])
