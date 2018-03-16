@@ -20,11 +20,20 @@ def get_section_times():
                                        week_day=section_time.week_day,
                                        section_time_start_time=str(section_time.section_time_start_time),
                                        section_time_finish_time=str(section_time.section_time_finish_time))
-                                  for section_time in models.SectionTimes.query.all() ])
+                                  for section_time in models.SectionTimes.query.all()])
 
 @section_times.route('/teachers_section_times/<teacher_id>', methods=['GET'])
 def teachers_section_times(teacher_id):
-    pass
+    section_times = (db.session.query(models.SectionTimes).
+                     filter(models.SectionTimes.course_section_id==CourseSections.id).
+                     filter(CourseSections.teacher_id==Users.id).
+                     filter(Users.id==teacher_id).all())
+    return jsonify(section_times=[dict(id=section_time.id, course_section_id=section_time.course_section_id,
+                                       week_day=section_time.week_day,
+                                       section_time_start_time=str(section_time.section_time_start_time),
+                                       section_time_finish_time=str(section_time.section_time_finish_time))
+                                  for section_time in section_times])
+
 
 
 

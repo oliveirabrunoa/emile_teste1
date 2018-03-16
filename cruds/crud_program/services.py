@@ -19,8 +19,13 @@ def programs():
 #Retorna todas as aulas de um curso.
 @program.route('/programs_course_sections/<program_id>', methods=['GET'])
 def programs_course_sections(program_id):
-    pass
-
+    course_sections = (db.session.query(CourseSections).
+                       filter(CourseSections.course_id==Courses.id).
+                       filter(Courses.program_id==models.Program.id).
+                       filter(models.Program.id==program_id).all())
+    return jsonify(course_sections=[dict(id=course_section.id,
+                                         code=course_section.code)
+                                         for course_section in course_sections])
 
 
 
