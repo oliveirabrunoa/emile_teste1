@@ -12,7 +12,7 @@ course_sections = Blueprint("course_sections", __name__)
 #Retornar todos as course_sections
 @course_sections.route('/course_sections', methods=['GET'])
 def get_course_section():
-    pass
+    return jsonify(course_sections=[dict(id=course_section.id, code=course_section.code) for course_section in models.CourseSections.query.all()])
 
 
 @course_sections.route('/course_section_details/<course_section_id>', methods=['GET'])
@@ -21,8 +21,8 @@ def course_section_details(course_section_id):
     return jsonify(course_section=[dict(id=course_section.id, code = course_section.code,
                                         name=course_section.name,
                                         course_section_period=course_section.course_section_period,
-                                        course=str(course_section.course),
-                                        teacher=str(course_section.teacher))])
+                                        course=str(course_section.course_id),
+                                        teacher=str(course_section.teacher_id))])
 
 
 

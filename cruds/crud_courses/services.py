@@ -12,4 +12,14 @@ def get_courses():
 #Retorna detalhes de um curso
 @courses.route('/course_details/<course_id>', methods=['GET'])
 def course_details(course_id):
-    pass
+
+     course = models.Courses.query.get(course_id)
+     return jsonify(course=[
+     					dict(
+	     						id=course.id,
+	                            code=course.code,
+	                            name=course.name,
+	                            credits=course.credits,
+	                            program_section=course.program_section,
+	                            course_type_id=course.course_type_id
+                            )])
